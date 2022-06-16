@@ -25,7 +25,7 @@
     ]
 
     function validateIsRedFruit( nameFruit: string ): boolean {
-        return fruitsName.filter(fruit => fruit.name === nameFruit).length > 0;
+        return fruitsName.filter(fruit => fruit.name === nameFruit).length > 0; // opcion 1
     }
 
     // Simplificar esta función
@@ -50,9 +50,25 @@
         
         if ( color === 'purple') return ['moras','uvas']
          
-            throw Error('the color must be: red, yellow, purple');
-        
+        throw Error('the color must be: red, yellow, purple');
     }
+
+    type FruitColor = 'red'|'yellow'|'purple';
+
+    function getFruitsByColorRefactoredOption2( color: FruitColor ): string[] {
+
+        const fruitsByColor = {
+            red:    ['manzana','fresa'],
+            yellow: ['piña', 'banano'],
+            purple: ['moras, uvas']
+        };
+
+        if( !Object.keys(fruitsByColor).includes(color) ) 
+            throw Error('the color must be: red, yellow, purple');
+
+        return fruitsByColor[color];
+    }
+    
 
     // Simplificar esta función
     let isFirstStepWorking  = true;
@@ -82,6 +98,14 @@
         else {
             return 'First step broken.';
         }
+    }
+
+    function workStepsRefactored() {
+        if (!isFirstStepWorking) return 'First step broken.';
+        if (!isSecondStepWorking) return 'Second step broken.';
+        if (!isThirdStepWorking) return 'Third step broken.';
+        if (!isFourthStepWorking) return 'Fourth step broken.';
+        return 'Working properly!';
     }
 
 
