@@ -1,33 +1,29 @@
-import { Tesla, Audi, Toyota, Honda } from './03-liskov-b';
+import { Tesla, Audi, Toyota, Honda, Vehicle, Ferrari } from './03-liskov-b';
 
 
 (() => {
     
-    //Se esta violentando el principio de substitución de liskov 
-    //dado que la función printCarSeats no funcionaria si recibe 
-    //envía otro tipo de carro, pasaría siempre el mismo problema cada vez 
-    //que se agrege un nuevo carro, adicionalmente se está violentando
-    // el principio de abierto y cerrado ya que la función printCarSeats 
-    //se tendrìa que modificar agredando nuevas condicionales para cada 
-    //carros que se adicione
-    const printCarSeats = ( cars: (Tesla | Audi | Toyota | Honda)[] ) => {
+    //el metodo printCarSeats recibe un Array de Vehicle y de este modo nuestra funcion va a recibir cualquier
+    // tipo de vehiculo sin necesidad de agregar un nuevo tipo de vehiculo por parametro
+    // por lo tanto estamos aplicando el principio de sustitución de liskov
+    const printCarSeats = ( cars: Vehicle[] ) => {
         
         for (const car of cars) {
          
             if( car instanceof Tesla ) {
-                console.log( 'Tesla', car.getNumberOfTeslaSeats() )
+                console.log( 'Tesla', car.getNumberOfSeats() )
                 continue;
             }
             if( car instanceof Audi ) {
-                console.log( 'Audi', car.getNumberOfAudiSeats() )
+                console.log( 'Audi', car.getNumberOfSeats() )
                 continue;
             }
             if( car instanceof Toyota ) {
-                console.log( 'Toyota', car.getNumberOfToyotaSeats() )
+                console.log( 'Toyota', car.getNumberOfSeats() )
                 continue;
             }
             if( car instanceof Honda ) {
-                console.log( 'Honda', car.getNumberOfHondaSeats() )
+                console.log( 'Honda', car.getNumberOfSeats() )
                 continue;
             }         
 
@@ -39,6 +35,7 @@ import { Tesla, Audi, Toyota, Honda } from './03-liskov-b';
         new Audi(2),
         new Toyota(5),
         new Honda(5),
+        new Ferrari(2)
     ];
 
 
