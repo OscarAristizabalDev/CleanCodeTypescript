@@ -1,8 +1,15 @@
 import localPosts from '../data/local-database.json';
+import { Post } from './05-dependency-b';
 
-export class LocalDataBaseService {
+// Se crea una clase abstract que define metodos abstractos, es necesaria para la inversión de dependencias
+export abstract class PostProvider {
+    abstract getPosts(): Promise<Post[]>;
+}
 
-    async getFakePosts() {
+// implementa la clase abstracta
+export class LocalDataBaseService implements PostProvider {
+
+    async getPosts() {
         return [
             {
                 'userId': 1,
@@ -20,10 +27,20 @@ export class LocalDataBaseService {
 
 }
 
-export class JsonDataBaseService {
+// implementa la clase abstracta
+export class JsonDataBaseService implements PostProvider {
 
-    async getPosts(){
+    async getPosts() {
         return localPosts;
     }
 
+}
+
+// implementa la clase abstracta
+export class WebApiPostServices implements PostProvider {
+
+    async getPosts() {
+        const resp = await fetch("https://jsonplaceholder.typicode.com/posts");
+        return await resp.json(); 
+    }
 }

@@ -1,4 +1,4 @@
-import { JsonDataBaseService, LocalDataBaseService } from "./05-dependency-c";
+import { JsonDataBaseService, LocalDataBaseService, PostProvider } from "./05-dependency-c";
 
 export interface Post {
     body:   string;
@@ -12,7 +12,8 @@ export class PostService {
 
     private posts: Post[] = [];
 
-    constructor(private postProvide: JsonDataBaseService) {}
+    // Se aplica inyección de dependencias, el cual se inyecta la clase abstract en vez de las clases que la implementa
+    constructor(private postProvide: PostProvider) {}
 
     async getPosts() {
         // const jsonDB = new LocalDataBaseService();
